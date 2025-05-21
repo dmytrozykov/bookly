@@ -8,7 +8,6 @@
 
 /* Begin PBXFileReference section */
 		CE7EFA0F2DDE648E007E5B2F /* Bookly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookly.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE7EFA312DDE65EA007E5B2F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		CE7EFA372DDE675B007E5B2F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -45,7 +44,6 @@
 			isa = PBXGroup;
 			children = (
 				CE7EFA372DDE675B007E5B2F /* .gitignore */,
-				CE7EFA312DDE65EA007E5B2F /* .swiftlint.yml */,
 				CE7EFA242DDE64AB007E5B2F /* Tests */,
 				CE7EFA232DDE64A2007E5B2F /* Resources */,
 				CE7EFA222DDE649C007E5B2F /* Sources */,
@@ -314,6 +312,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L6TAV47JN2;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -348,6 +347,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L6TAV47JN2;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
