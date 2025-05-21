@@ -1,0 +1,12 @@
+disabled_rules:
+  - trailing_whitespace
+  - force_cast
+  - identifier_name
+
+opt_in_rules:
+  - sorted_imports
+
+analyzer_rules:
+  - explicit_self
+
+reporter: "xcode"
