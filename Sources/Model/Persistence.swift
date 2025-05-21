@@ -1,10 +1,3 @@
-//
-//  Persistence.swift
-//  Bookly
-//
-//  Created by user on 5/21/25.
-//
-
 import CoreData
 
 struct PersistenceController {
@@ -14,9 +7,13 @@ struct PersistenceController {
     static let preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+        for index in 0..<10 {
+            let newBook = Book(context: viewContext)
+            newBook.title = "Test Book \(index)"
+            newBook.currentPage = Int16(index)
+            newBook.pageCount = Int16(index * 10)
+            newBook.id = UUID()
+            newBook.isbn = "9780321637921"
         }
         do {
             try viewContext.save()
