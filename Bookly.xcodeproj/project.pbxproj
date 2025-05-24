@@ -10,10 +10,40 @@
 		CE05C7D42DE1BA7900FD99FA /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = CE05C7D32DE1BA7900FD99FA /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		CEA9F29B2DE1E3B00041C27B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE7EFA072DDE648E007E5B2F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE7EFA0E2DDE648E007E5B2F;
+			remoteInfo = Bookly;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		CE7EFA0F2DDE648E007E5B2F /* Bookly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7EFA372DDE675B007E5B2F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		CEA9F2972DE1E3B00041C27B /* BooklyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BooklyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CEA9F2A02DE1E3C20041C27B /* Exceptions for "Tests" folder in "Bookly" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				LibraryFeatureTests.swift,
+				Mock/Service/BookServiceMock.swift,
+			);
+			target = CE7EFA0E2DDE648E007E5B2F /* Bookly */;
+		};
+		CEA9F2A22DE1E3C50041C27B /* Exceptions for "Tests" folder in "BooklyTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				LibraryFeatureTests.swift,
+				Mock/Service/BookServiceMock.swift,
+			);
+			target = CEA9F2962DE1E3B00041C27B /* BooklyTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CE7EFA222DDE649C007E5B2F /* Sources */ = {
@@ -26,8 +56,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		CE7EFA242DDE64AB007E5B2F /* Tests */ = {
+		CEA9F28F2DE1E3810041C27B /* Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CEA9F2A02DE1E3C20041C27B /* Exceptions for "Tests" folder in "Bookly" target */,
+				CEA9F2A22DE1E3C50041C27B /* Exceptions for "Tests" folder in "BooklyTests" target */,
+			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
@@ -42,14 +76,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEA9F2942DE1E3B00041C27B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		CE7EFA062DDE648E007E5B2F = {
 			isa = PBXGroup;
 			children = (
+				CEA9F28F2DE1E3810041C27B /* Tests */,
 				CE7EFA372DDE675B007E5B2F /* .gitignore */,
-				CE7EFA242DDE64AB007E5B2F /* Tests */,
 				CE7EFA232DDE64A2007E5B2F /* Resources */,
 				CE7EFA222DDE649C007E5B2F /* Sources */,
 				CE7EFA102DDE648E007E5B2F /* Products */,
@@ -60,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				CE7EFA0F2DDE648E007E5B2F /* Bookly.app */,
+				CEA9F2972DE1E3B00041C27B /* BooklyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,7 +126,7 @@
 			fileSystemSynchronizedGroups = (
 				CE7EFA222DDE649C007E5B2F /* Sources */,
 				CE7EFA232DDE64A2007E5B2F /* Resources */,
-				CE7EFA242DDE64AB007E5B2F /* Tests */,
+				CEA9F28F2DE1E3810041C27B /* Tests */,
 			);
 			name = Bookly;
 			packageProductDependencies = (
@@ -93,6 +135,26 @@
 			productName = Bookly;
 			productReference = CE7EFA0F2DDE648E007E5B2F /* Bookly.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CEA9F2962DE1E3B00041C27B /* BooklyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEA9F29D2DE1E3B00041C27B /* Build configuration list for PBXNativeTarget "BooklyTests" */;
+			buildPhases = (
+				CEA9F2932DE1E3B00041C27B /* Sources */,
+				CEA9F2942DE1E3B00041C27B /* Frameworks */,
+				CEA9F2952DE1E3B00041C27B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEA9F29C2DE1E3B00041C27B /* PBXTargetDependency */,
+			);
+			name = BooklyTests;
+			packageProductDependencies = (
+			);
+			productName = BooklyTests;
+			productReference = CEA9F2972DE1E3B00041C27B /* BooklyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -106,6 +168,10 @@
 				TargetAttributes = {
 					CE7EFA0E2DDE648E007E5B2F = {
 						CreatedOnToolsVersion = 16.3;
+					};
+					CEA9F2962DE1E3B00041C27B = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = CE7EFA0E2DDE648E007E5B2F;
 					};
 				};
 			};
@@ -127,12 +193,20 @@
 			projectRoot = "";
 			targets = (
 				CE7EFA0E2DDE648E007E5B2F /* Bookly */,
+				CEA9F2962DE1E3B00041C27B /* BooklyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CE7EFA0D2DDE648E007E5B2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEA9F2952DE1E3B00041C27B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -190,7 +264,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEA9F2932DE1E3B00041C27B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CEA9F29C2DE1E3B00041C27B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE7EFA0E2DDE648E007E5B2F /* Bookly */;
+			targetProxy = CEA9F29B2DE1E3B00041C27B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		CE7EFA1D2DDE6490007E5B2F /* Debug */ = {
@@ -382,6 +471,44 @@
 			};
 			name = Release;
 		};
+		CEA9F29E2DE1E3B00041C27B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L6TAV47JN2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refrain.BooklyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bookly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bookly";
+			};
+			name = Debug;
+		};
+		CEA9F29F2DE1E3B00041C27B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L6TAV47JN2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refrain.BooklyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bookly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bookly";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -399,6 +526,15 @@
 			buildConfigurations = (
 				CE7EFA202DDE6490007E5B2F /* Debug */,
 				CE7EFA212DDE6490007E5B2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEA9F29D2DE1E3B00041C27B /* Build configuration list for PBXNativeTarget "BooklyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA9F29E2DE1E3B00041C27B /* Debug */,
+				CEA9F29F2DE1E3B00041C27B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

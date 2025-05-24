@@ -2,17 +2,17 @@ import Combine
 import CoreData
 import Foundation
 
-protocol BookServiceProtocol {
+public protocol BookServiceProtocol {
     func fetchBooks() async throws -> [BookModel]
     func updateBook(_ book: BookModel) async throws -> BookModel
     func addBook(_ book: BookModel) async throws -> BookModel
     func deleteBook(with id: UUID) async throws
 }
 
-enum BookServiceError: Error, LocalizedError {
+public enum BookServiceError: Error, LocalizedError {
     case bookNotFound
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .bookNotFound:
             return "Book not found"

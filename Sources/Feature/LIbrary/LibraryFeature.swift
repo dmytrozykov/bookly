@@ -2,15 +2,15 @@ import ComposableArchitecture
 import Foundation
 
 @Reducer
-struct LibraryFeature {
+public struct LibraryFeature {
     @ObservableState
-    struct State: Equatable {
+    public struct State: Equatable {
         var books: [BookModel] = []
         var isLoading = false
         var errorMessage: String?
     }
     
-    enum Action {
+    public enum Action {
         case onAppear
         case refresh
         case booksLoaded([BookModel])
@@ -19,7 +19,7 @@ struct LibraryFeature {
     
     @Dependency(\.bookService) var bookService
     
-    var body: some ReducerOf<Self> {
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear, .refresh:

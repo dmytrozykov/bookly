@@ -1,7 +1,7 @@
 import CoreData
 
-struct BookModel: Identifiable, Hashable {
-    let id: UUID
+public struct BookModel: Identifiable, Hashable {
+    public let id: UUID
     var title: String
     var author: String
     var isbn: String
