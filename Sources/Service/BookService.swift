@@ -27,6 +27,11 @@ final class BookService: BookServiceProtocol {
         self.context = context
     }
     
+    @MainActor
+    static let preview: BookService = .init(
+        context: PersistenceController.preview.container.viewContext
+    )
+    
     func fetchBooks() async throws -> [BookModel] {
         try await withCheckedThrowingContinuation { continuation in
             context.perform {
