@@ -17,25 +17,31 @@ struct BookRow: View {
         VStack(alignment: .leading) {
             Text(book.title)
                 .font(.headline)
+                .foregroundStyle(.primary)
+                .multilineTextAlignment(.leading)
             
             Text(book.author)
-                .font(.caption)
+                .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
     }
     
     private var progress: some View {
-        let isFinished = book.currentPage == book.pageCount
+        let progress = book.pageCount == 0 || book.currentPage == 0 ?
+        0 :
+        Double(book.currentPage) / Double(book.pageCount)
         
-        return HStack {
-            Text("\(book.currentPage)")
-                .foregroundStyle(
-                    isFinished ? .primary : .secondary
-                )
-            Text("/")
-            Text("\(book.pageCount)")
+        return ZStack {
+            CircularProgressBar(
+                progress: progress,
+                lineWidth: 8
+            )
+            
+            Text("\(progress * 100, specifier: "%.0f")")
+                .font(.system(size: 10))
+                .bold()
         }
-        .font(.title3)
+        .frame(width: 32, height: 32)
     }
 }
 
