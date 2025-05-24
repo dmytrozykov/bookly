@@ -1,7 +1,7 @@
 import Combine
 import SwiftUI
 
-extension BookList {
+extension LibraryView {
     final class ViewModel: ObservableObject {
         @Published private(set) var books: [BookModel] = []
         @Published private(set) var error: BookRepositoryError?

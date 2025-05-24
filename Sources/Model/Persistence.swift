@@ -10,6 +10,7 @@ struct PersistenceController {
         for index in 0..<10 {
             let newBook = Book(context: viewContext)
             newBook.title = "Test Book \(index)"
+            newBook.author = "John Doe"
             newBook.currentPage = Int16(index)
             newBook.pageCount = Int16(index * 10)
             newBook.id = UUID()
