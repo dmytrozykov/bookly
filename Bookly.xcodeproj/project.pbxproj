@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CE05C7D42DE1BA7900FD99FA /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = CE05C7D32DE1BA7900FD99FA /* ComposableArchitecture */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		CE7EFA0F2DDE648E007E5B2F /* Bookly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7EFA372DDE675B007E5B2F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -34,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE05C7D42DE1BA7900FD99FA /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +88,7 @@
 			);
 			name = Bookly;
 			packageProductDependencies = (
+				CE05C7D32DE1BA7900FD99FA /* ComposableArchitecture */,
 			);
 			productName = Bookly;
 			productReference = CE7EFA0F2DDE648E007E5B2F /* Bookly.app */;
@@ -112,6 +118,9 @@
 			);
 			mainGroup = CE7EFA062DDE648E007E5B2F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CE05C7D22DE1BA7900FD99FA /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CE7EFA102DDE648E007E5B2F /* Products */;
 			projectDirPath = "";
@@ -395,6 +404,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE05C7D22DE1BA7900FD99FA /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.20.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE05C7D32DE1BA7900FD99FA /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE05C7D22DE1BA7900FD99FA /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE7EFA072DDE648E007E5B2F /* Project object */;
 }
