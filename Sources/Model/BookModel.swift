@@ -2,10 +2,10 @@ import CoreData
 
 struct BookModel: Identifiable, Hashable {
     let id: UUID
-    let title: String
-    let author: String
-    let isbn: String
-    let pageCount: Int
+    var title: String
+    var author: String
+    var isbn: String
+    var pageCount: Int
     var currentPage: Int
     
     static let preview: BookModel = .init(

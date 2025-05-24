@@ -10,7 +10,13 @@ struct LibraryView: View {
     var body: some View {
         List {
             ForEach(viewModel.books) { book in
-                bookRow(for: book)
+                NavigationLink {
+                    BookDetail(book: book) { updatedBook in
+                        viewModel.updateBook(updatedBook)
+                    }
+                } label: {
+                    bookRow(for: book)
+                }
             }
         }
         .refreshable {

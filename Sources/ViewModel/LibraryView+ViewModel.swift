@@ -37,5 +37,17 @@ extension LibraryView {
                 } receiveValue: { _ in }
                 .store(in: &cancellables)
         }
+        
+        func updateBook(_ book: BookModel) {
+            repostiory.update(book: book)
+                .sink { [weak self] completion in
+                    if case let .failure(error) = completion {
+                        self?.error = error
+                    } else {
+                        self?.loadBooks()
+                    }
+                } receiveValue: { _ in }
+                .store(in: &cancellables)
+        }
     }
 }

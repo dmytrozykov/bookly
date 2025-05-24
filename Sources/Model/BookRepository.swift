@@ -58,6 +58,7 @@ final class CoreDataBookRepository: BookRepository {
                         }
                         
                         bookEntity.title = book.title
+                        bookEntity.author = book.author
                         bookEntity.isbn = book.isbn
                         bookEntity.pageCount = Int16(book.pageCount)
                         bookEntity.currentPage = Int16(book.currentPage)
@@ -81,6 +82,7 @@ final class CoreDataBookRepository: BookRepository {
                     let newBook = Book(context: self.context)
                     newBook.id = book.id
                     newBook.title = book.title
+                    newBook.author = book.author
                     newBook.pageCount = Int16(book.pageCount)
                     newBook.currentPage = Int16(book.currentPage)
                     
