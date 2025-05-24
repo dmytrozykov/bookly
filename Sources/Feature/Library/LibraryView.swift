@@ -2,7 +2,8 @@ import ComposableArchitecture
 import SwiftUI
 
 struct LibraryView: View {
-    let store: StoreOf<LibraryFeature>
+    @ComposableArchitecture.Bindable
+    var store: StoreOf<LibraryFeature>
     
     var body: some View {
         Group {
@@ -22,12 +23,19 @@ struct LibraryView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    
+                    store.send(.addButtonTapped)
                 } label: {
                     Label("Add", systemImage: "plus")
                 }
             }
         }
+        .sheet(
+              item: $store.scope(state: \.addBook, action: \.addBook)
+            ) { addBookStore in
+              NavigationStack {
+                AddBookView(store: addBookStore)
+              }
+            }
     }
     
     private var bookList: some View {

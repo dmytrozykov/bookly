@@ -29,4 +29,15 @@ extension BookModel {
             currentPage: Int(bookEntity.currentPage)
         )
     }
+    
+    init() {
+        self.init(
+            id: UUID(),
+            title: "",
+            author: "",
+            isbn: "",
+            pageCount: 0,
+            currentPage: 0
+        )
+    }
 }

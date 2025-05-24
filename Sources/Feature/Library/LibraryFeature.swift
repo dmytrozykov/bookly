@@ -5,6 +5,8 @@ import Foundation
 public struct LibraryFeature {
     @ObservableState
     public struct State: Equatable {
+        @Presents var addBook: AddBookFeature.State?
+        
         var books: [BookModel] = []
         var isLoading = false
         var errorMessage: String?
@@ -15,6 +17,9 @@ public struct LibraryFeature {
         case refresh
         case booksLoaded([BookModel])
         case loadingError(String)
+        case addButtonTapped
+        case addBook(PresentationAction<AddBookFeature.Action>)
+        case savingError(String)
     }
     
     @Dependency(\.bookService) var bookService
@@ -43,7 +48,31 @@ public struct LibraryFeature {
                 state.isLoading = false
                 state.errorMessage = message
                 return .none
+                
+            case .addButtonTapped:
+                state.addBook = AddBookFeature.State(book: BookModel())
+                return .none
+                
+            case let .addBook(.presented(.delegate(.saveBook(book)))):
+                return .run { send in
+                    do {
+                        _ = try await bookService.addBook(book)
+                        await send(.refresh)
+                    } catch {
+                        await send(.savingError(error.localizedDescription))
+                    }
+                }
+                
+            case let .savingError(message):
+                state.errorMessage = message
+                return .none
+                
+            case .addBook:
+                return .none
             }
+        }
+        .ifLet(\.$addBook, action: \.addBook) {
+            AddBookFeature()
         }
     }
 }
