@@ -18,15 +18,15 @@ struct BookModel: Identifiable, Hashable {
     )
 }
 
-extension Book {
-    var bookModel: BookModel {
-        .init(
-            id: self.id ?? UUID(),
-            title: self.title ?? "",
-            author: self.author ?? "",
-            isbn: self.isbn ?? "",
-            pageCount: Int(self.pageCount),
-            currentPage: Int(self.currentPage)
+extension BookModel {
+    init(from bookEntity: Book) {
+        self.init(
+            id: bookEntity.id ?? UUID(),
+            title: bookEntity.title ?? "",
+            author: bookEntity.author ?? "",
+            isbn: bookEntity.isbn ?? "",
+            pageCount: Int(bookEntity.pageCount),
+            currentPage: Int(bookEntity.currentPage)
         )
     }
 }

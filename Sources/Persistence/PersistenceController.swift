@@ -11,8 +11,8 @@ struct PersistenceController {
             let newBook = Book(context: viewContext)
             newBook.title = "Test Book \(index)"
             newBook.author = "John Doe"
-            newBook.currentPage = Int16(index)
-            newBook.pageCount = Int16(index * 10)
+            newBook.currentPage = Int32(index)
+            newBook.pageCount = Int32(index * 10)
             newBook.id = UUID()
             newBook.isbn = "9780321637921"
         }
