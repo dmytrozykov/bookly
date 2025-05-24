@@ -6,8 +6,10 @@ struct BooklyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            let repository = CoreDataBookRepository(context: persistenceController.container.viewContext)
+            let viewModel = BookList.ViewModel(repository: repository)
+            
+            BookList(viewModel: viewModel)
         }
     }
 }
