@@ -6,6 +6,7 @@ public struct LibraryFeature {
     @ObservableState
     public struct State: Equatable {
         @Presents var addBook: AddBookFeature.State?
+        @Presents var alert: AlertState<Action.Alert>?
         
         var books: [BookModel] = []
         var isLoading = false
@@ -19,7 +20,14 @@ public struct LibraryFeature {
         case loadingError(String)
         case addButtonTapped
         case addBook(PresentationAction<AddBookFeature.Action>)
+        case alert(PresentationAction<Alert>)
         case savingError(String)
+        case deleteButtonTapped(id: BookModel.ID)
+        
+        @CasePathable
+        public enum Alert: Equatable {
+            case confirmDeletion(id: BookModel.ID)
+        }
     }
     
     @Dependency(\.bookService) var bookService
@@ -69,10 +77,34 @@ public struct LibraryFeature {
                 
             case .addBook:
                 return .none
+                
+            case let .alert(.presented(.confirmDeletion(id: id))):
+                return .run { send in
+                    do {
+                        try await bookService.deleteBook(with: id)
+                        await send(.refresh)
+                    } catch {
+                        await send(.savingError(error.localizedDescription))
+                    }
+                }
+                
+            case .alert:
+                return .none
+                
+            case let .deleteButtonTapped(id: id):
+                state.alert = AlertState {
+                    TextState("Are you sure?")
+                } actions: {
+                    ButtonState(role: .destructive, action: .confirmDeletion(id: id)) {
+                        TextState("Delete")
+                    }
+                }
+                return .none
             }
         }
         .ifLet(\.$addBook, action: \.addBook) {
             AddBookFeature()
         }
+        .ifLet(\.$alert, action: \.alert)
     }
 }

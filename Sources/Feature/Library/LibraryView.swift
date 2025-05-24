@@ -30,18 +30,27 @@ struct LibraryView: View {
             }
         }
         .sheet(
-              item: $store.scope(state: \.addBook, action: \.addBook)
-            ) { addBookStore in
-              NavigationStack {
+            item: $store.scope(state: \.addBook, action: \.addBook)
+        ) { addBookStore in
+            NavigationStack {
                 AddBookView(store: addBookStore)
-              }
             }
+        }
+        .alert($store.scope(state: \.alert, action: \.alert))
     }
     
     private var bookList: some View {
         List {
             ForEach(store.books) { book in
                 BookRow(book: book)
+                    .swipeActions {
+                        Button {
+                            store.send(.deleteButtonTapped(id: book.id))
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                        .tint(.red)
+                    }
             }
         }
         .listStyle(.plain)
@@ -62,15 +71,15 @@ struct LibraryView: View {
                 .foregroundColor(.secondary)
             
             VStack(spacing: 8) {
-                 Text("No Books Yet")
-                     .font(.title3)
-                     .fontWeight(.semibold)
-                 
-                 Text("Add your first book to get started")
-                     .font(.body)
-                     .foregroundColor(.secondary)
-                     .multilineTextAlignment(.center)
-             }
+                Text("No Books Yet")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                
+                Text("Add your first book to get started")
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            }
         }
     }
 }
