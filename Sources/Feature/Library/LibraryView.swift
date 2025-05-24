@@ -30,13 +30,13 @@ struct LibraryView: View {
             }
         }
         .sheet(
-            item: $store.scope(state: \.addBook, action: \.addBook)
+            item: $store.scope(state: \.destination?.addBook, action: \.destination.addBook)
         ) { addBookStore in
             NavigationStack {
                 AddBookView(store: addBookStore)
             }
         }
-        .alert($store.scope(state: \.alert, action: \.alert))
+        .alert($store.scope(state: \.destination?.alert, action: \.destination.alert))
     }
     
     private var bookList: some View {

@@ -5,8 +5,7 @@ import Foundation
 public struct LibraryFeature {
     @ObservableState
     public struct State: Equatable {
-        @Presents var addBook: AddBookFeature.State?
-        @Presents var alert: AlertState<Action.Alert>?
+        @Presents var destination: Destination.State?
         
         var books: [BookModel] = []
         var isLoading = false
@@ -16,18 +15,16 @@ public struct LibraryFeature {
     public enum Action {
         case onAppear
         case refresh
+        
         case booksLoaded([BookModel])
+        
         case loadingError(String)
-        case addButtonTapped
-        case addBook(PresentationAction<AddBookFeature.Action>)
-        case alert(PresentationAction<Alert>)
         case savingError(String)
+        
+        case addButtonTapped
         case deleteButtonTapped(id: BookModel.ID)
         
-        @CasePathable
-        public enum Alert: Equatable {
-            case confirmDeletion(id: BookModel.ID)
-        }
+        case destination(PresentationAction<Destination.Action>)
     }
     
     @Dependency(\.bookService) var bookService
@@ -57,11 +54,29 @@ public struct LibraryFeature {
                 state.errorMessage = message
                 return .none
                 
-            case .addButtonTapped:
-                state.addBook = AddBookFeature.State(book: BookModel())
+            case let .savingError(message):
+                state.errorMessage = message
                 return .none
                 
-            case let .addBook(.presented(.delegate(.saveBook(book)))):
+            case .addButtonTapped:
+                state.destination = .addBook(
+                    AddBookFeature.State(book: BookModel())
+                )
+                return .none
+                
+            case let .deleteButtonTapped(id: id):
+                state.destination = .alert(
+                    AlertState {
+                        TextState("Are you sure?")
+                    } actions: {
+                        ButtonState(role: .destructive, action: .confirmDeletion(id: id)) {
+                            TextState("Delete")
+                        }
+                    }
+                )
+                return .none
+                
+            case let .destination(.presented(.addBook(.delegate(.saveBook(book))))):
                 return .run { send in
                     do {
                         _ = try await bookService.addBook(book)
@@ -71,14 +86,7 @@ public struct LibraryFeature {
                     }
                 }
                 
-            case let .savingError(message):
-                state.errorMessage = message
-                return .none
-                
-            case .addBook:
-                return .none
-                
-            case let .alert(.presented(.confirmDeletion(id: id))):
+            case let .destination(.presented(.alert(.confirmDeletion(id: id)))):
                 return .run { send in
                     do {
                         try await bookService.deleteBook(with: id)
@@ -88,23 +96,29 @@ public struct LibraryFeature {
                     }
                 }
                 
-            case .alert:
-                return .none
-                
-            case let .deleteButtonTapped(id: id):
-                state.alert = AlertState {
-                    TextState("Are you sure?")
-                } actions: {
-                    ButtonState(role: .destructive, action: .confirmDeletion(id: id)) {
-                        TextState("Delete")
-                    }
-                }
+            case .destination:
                 return .none
             }
         }
-        .ifLet(\.$addBook, action: \.addBook) {
-            AddBookFeature()
+        .ifLet(\.$destination, action: \.destination) {
+            Destination.body
         }
-        .ifLet(\.$alert, action: \.alert)
     }
 }
+
+extension LibraryFeature.Action {
+    @CasePathable
+    public enum Alert: Equatable {
+        case confirmDeletion(id: BookModel.ID)
+    }
+}
+
+extension LibraryFeature {
+    @Reducer
+    public enum Destination {
+        case addBook(AddBookFeature)
+        case alert(AlertState<LibraryFeature.Action.Alert>)
+    }
+}
+
+extension LibraryFeature.Destination.State: Equatable {}
