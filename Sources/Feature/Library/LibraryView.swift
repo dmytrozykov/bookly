@@ -37,8 +37,11 @@ struct LibraryView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
-            Button("Add", systemImage: "plus.circle.fill") {
+            Button {
                 store.send(.addButtonTapped)
+            } label: {
+                Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 28))
             }
         }
     }

@@ -89,8 +89,7 @@ struct BookRow: View {
     }
     
     private var bookCoverImage: some View {
-        RoundedRectangle(cornerRadius: 8)
-            .fill(gradientColors)
+        BookCoverImage()
             .frame(width: 60, height: 80)
     }
     
@@ -106,21 +105,6 @@ struct BookRow: View {
             radius: 5,
             x: 3,
             y: 3
-        )
-    }
-    
-    private var gradientColors: LinearGradient {
-        let baseHue = Double.random(in: 0...1)
-        let offsetHue = (baseHue + Double.random(in: 0.05...0.2))
-            .truncatingRemainder(dividingBy: 1)
-        
-        let color1 = Color(hue: baseHue, saturation: 0.7, brightness: 0.9)
-        let color2 = Color(hue: offsetHue, saturation: 0.7, brightness: 0.9)
-        
-        return LinearGradient(
-            colors: [color1, color2],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
         )
     }
     
