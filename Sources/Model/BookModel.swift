@@ -30,9 +30,9 @@ extension BookModel {
         )
     }
     
-    init() {
+    init(id: UUID = UUID()) {
         self.init(
-            id: UUID(),
+            id: id,
             title: "",
             author: "",
             isbn: "",

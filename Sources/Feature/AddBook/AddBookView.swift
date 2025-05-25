@@ -14,7 +14,7 @@ struct AddBookView: View {
                     .foregroundStyle(.secondary)
             }
             
-            LabeledContent{
+            LabeledContent {
                 TextField("", text: $store.book.author.sending(\.setAuthor))
             } label: {
                 Text("Author")

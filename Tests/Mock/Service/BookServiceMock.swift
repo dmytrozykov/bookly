@@ -5,7 +5,8 @@ import Foundation
 final class BookServiceMock: BookServiceProtocol {
     private(set) var books: [BookModel]
     
-    init(books: [BookModel] = []) {
+    init(
+        books: [BookModel] = []) {
         self.books = books
     }
     
@@ -30,5 +31,6 @@ final class BookServiceMock: BookServiceProtocol {
         guard let index = books.firstIndex(where: { $0.id == id }) else {
             throw BookServiceError.bookNotFound
         }
+        books.remove(at: index)
     }
 }
