@@ -97,7 +97,7 @@ struct BookRow: View {
         StyledRoundedRectangle(
             strokeColor: Color(.label).opacity(0.1),
             backgroundColor: Color(.systemBackground),
-            cornerRadius: 24,
+            cornerRadius: 16,
             lineWidth: 1
         )
         .shadow(

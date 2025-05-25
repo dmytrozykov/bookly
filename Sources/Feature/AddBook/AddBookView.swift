@@ -20,7 +20,6 @@ struct AddBookView: View {
     
     private var contentView: some View {
         VStack {
-            Divider()
             bookCoverSection
             Divider()
             formSection
