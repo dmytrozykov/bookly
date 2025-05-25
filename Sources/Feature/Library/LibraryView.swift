@@ -5,81 +5,110 @@ struct LibraryView: View {
     @ComposableArchitecture.Bindable
     var store: StoreOf<LibraryFeature>
     
-    var body: some View {
-        Group {
-            if store.isLoading && store.books.isEmpty {
-                progressView
-            } else if store.books.isEmpty {
-                unavailableView
-            } else {
-                bookList
-            }
-        }
-        .onAppear {
-            store.send(.onAppear)
-        }
-        .navigationTitle("Library")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    store.send(.addButtonTapped)
-                } label: {
-                    Label("Add", systemImage: "plus")
-                }
-            }
-        }
-        .sheet(
-            item: $store.scope(state: \.destination?.addBook, action: \.destination.addBook)
-        ) { addBookStore in
-            NavigationStack {
-                AddBookView(store: addBookStore)
-            }
-        }
-        .alert($store.scope(state: \.destination?.alert, action: \.destination.alert))
+    private var isEmptyAndLoading: Bool {
+        store.isLoading && store.books.isEmpty
     }
     
-    private var bookList: some View {
+    var body: some View {
+        contentView
+            .onAppear { store.send(.onAppear) }
+            .navigationTitle("Library")
+            .toolbar { toolbarContent }
+            .sheet(item: addBookBinding) { addBookStore in
+                NavigationStack {
+                    AddBookView(store: addBookStore)
+                }
+            }
+            .alert(alertBinding)
+    }
+    
+    @ViewBuilder
+    private var contentView: some View {
+        switch (isEmptyAndLoading, store.books.isEmpty) {
+        case (true, _):
+            loadingView
+        case (false, true):
+            emptyStateView
+        default:
+            bookListView
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .primaryAction) {
+            Button("Add", systemImage: "plus.circle.fill") {
+                store.send(.addButtonTapped)
+            }
+        }
+    }
+    
+    private var addBookBinding: Binding<StoreOf<AddBookFeature>?> {
+        $store.scope(state: \.destination?.addBook, action: \.destination.addBook)
+    }
+    
+    private var alertBinding: Binding<Store<AlertState<LibraryFeature.Action.Alert>, LibraryFeature.Action.Alert>?> {
+        $store.scope(state: \.destination?.alert, action: \.destination.alert)
+    }
+    
+    private var bookListView: some View {
         List {
             ForEach(store.books) { book in
-                BookRow(book: book)
-                    .swipeActions {
-                        Button {
-                            store.send(.deleteButtonTapped(id: book.id))
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                        .tint(.red)
-                    }
+                bookRow(for: book)
             }
         }
         .listStyle(.plain)
-        .refreshable {
-            store.send(.refresh)
-        }
+        .refreshable { store.send(.refresh) }
+        .searchable(text: searchBinding)
     }
     
-    private var progressView: some View {
+    private func bookRow(for book: BookModel) -> some View {
+        BookRow(book: book)
+            .swipeActions { deleteSwipeAction(for: book) }
+            .listRowSeparator(.hidden, edges: .all)
+    }
+    
+    @ViewBuilder
+    private func deleteSwipeAction(for book: BookModel) -> some View {
+        Button("Delete", systemImage: "trash") {
+            store.send(.deleteButtonTapped(id: book.id))
+        }
+        .tint(.red)
+    }
+    
+    private var searchBinding: Binding<String> {
+        // TODO: Implement search
+        .constant("")
+    }
+    
+    private var loadingView: some View {
         ProgressView("Loading books...")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private var unavailableView: some View {
+    private var emptyStateView: some View {
         VStack(spacing: 20) {
-            Image(systemName: "book.closed")
-                .font(.system(size: 60))
-                .foregroundColor(.secondary)
+            emptyStateIcon
+            emptyStateText
+        }
+    }
+    
+    private var emptyStateIcon: some View {
+        Image(systemName: "book.closed")
+            .font(.system(size: 60))
+            .foregroundColor(.secondary)
+    }
+    
+    private var emptyStateText: some View {
+        VStack(spacing: 8) {
+            Text("No Books Yet")
+                .font(.title3)
+                .fontWeight(.semibold)
             
-            VStack(spacing: 8) {
-                Text("No Books Yet")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                
-                Text("Add your first book to get started")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            }
+            Text("Add your first book to get started")
+                .font(.body)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
         }
     }
 }
